@@ -1,8 +1,7 @@
 [project]
-name = "scripts"
+name = "duckdb-analysis-skill"
 version = "0.1.0"
-description = "DuckDB data analysis scripts"
-readme = "README.md"
+description = "DuckDB data analysis tool for AI"
 requires-python = ">=3.11"
 dependencies = [
     "duckdb",
@@ -11,6 +10,9 @@ dependencies = [
     "seaborn",
     "openpyxl",
 ]
+
+[project.scripts]
+duckdb-analysis = "main:main"
 
 [[tool.uv.index]]
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"

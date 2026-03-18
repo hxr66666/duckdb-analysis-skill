@@ -37,7 +37,7 @@ description: |
 **注意事项**:
 - 确保系统安装了uv工具,用于管理Python依赖
 - 首次运行必须在`scripts` 目录下执行`uv sync` 命令,安装必要的依赖
-- 首次运行必须先执行 `uv run --directory scripts main.py --session-id init  initialize-extensions` 命令下载duckdb 内置的数据插件，这个过程可能需要几分钟，视网络情况而定
+- 首次运行必须先执行 `duckdb-analysis --session-id init  initialize-extensions` 命令下载duckdb 内置的数据插件，这个过程可能需要几分钟，视网络情况而定
 - 首次运行时会创建 `analysis.db` 数据库文件,用于存储会话信息和操作日志
 
 **参数说明**:
@@ -64,203 +64,203 @@ options:
  **使用方法:**
   1. **查看帮助信息**:
      ```bash
-     uv run --directory scripts main.py --help
+     duckdb-analysis --help
      ```
 
   2. **初始化扩展** (首次运行时使用):
      ```bash
-     uv run --directory scripts main.py --session-id <任意会话ID> initialize-extensions
+     duckdb-analysis --session-id <任意会话ID> initialize-extensions
      ```
 
   3. **导入数据**:
      ```bash
-     uv run --directory scripts main.py --session-id <会话ID> import --file <文件路径> --table <表名> [--description <会话描述>]
+     duckdb-analysis --session-id <会话ID> import --file <文件路径> --table <表名> [--description <会话描述>]
      ```
 
   4. **查看已导入的表**:
      ```bash
-     uv run --directory scripts main.py --session-id <会话ID> list-tables
+     duckdb-analysis --session-id <会话ID> list-tables
      ```
 
   5. **获取表元数据**:
      ```bash
-     uv run --directory scripts main.py --session-id <会话ID> table-metadata --table <表名>
+     duckdb-analysis --session-id <会话ID> table-metadata --table <表名>
      ```
 
   6. **执行SQL查询**:
      ```bash
-     uv run --directory scripts main.py --session-id <会话ID> query --sql "<SQL语句>"
+     duckdb-analysis --session-id <会话ID> query --sql "<SQL语句>"
      ```
 
   7. **数据可视化**:
      - 柱状图:
        ```bash
-       uv run --directory scripts main.py --session-id <会话ID> visualize --sql "<SQL语句>" --chart bar --x <x轴字段> --y <y轴字段>
+       duckdb-analysis --session-id <会话ID> visualize --sql "<SQL语句>" --chart bar --x <x轴字段> --y <y轴字段>
        ```
      - 折线图:
        ```bash
-       uv run --directory scripts main.py --session-id <会话ID> visualize --sql "<SQL语句>" --chart line --x <x轴字段> --y <y轴字段>
+       duckdb-analysis --session-id <会话ID> visualize --sql "<SQL语句>" --chart line --x <x轴字段> --y <y轴字段>
        ```
      - 散点图:
        ```bash
-       uv run --directory scripts main.py --session-id <会话ID> visualize --sql "<SQL语句>" --chart scatter --x <x轴字段> --y <y轴字段>
+       duckdb-analysis --session-id <会话ID> visualize --sql "<SQL语句>" --chart scatter --x <x轴字段> --y <y轴字段>
        ```
      - 直方图:
        ```bash
-       uv run --directory scripts main.py --session-id <会话ID> visualize --sql "<SQL语句>" --chart histogram --x <x轴字段>
+       duckdb-analysis --session-id <会话ID> visualize --sql "<SQL语句>" --chart histogram --x <x轴字段>
        ```
      - 箱线图:
        ```bash
-       uv run --directory scripts main.py --session-id <会话ID> visualize --sql "<SQL语句>" --chart box --x <x轴字段> --y <y轴字段>
+       duckdb-analysis --session-id <会话ID> visualize --sql "<SQL语句>" --chart box --x <x轴字段> --y <y轴字段>
        ```
 
   8. **查看操作日志**:
      ```bash
-     uv run --directory scripts main.py --session-id <会话ID> log
+     duckdb-analysis --session-id <会话ID> log
      ```
 
   9. **设置会话描述**:
      ```bash
-     uv run --directory scripts main.py --session-id <会话ID> describe --description "<会话描述>"
+     duckdb-analysis --session-id <会话ID> describe --description "<会话描述>"
      ```
 
   10. **查看所有会话**:
      ```bash
-     uv run --directory scripts main.py --session-id <任意会话ID> list-sessions
+     duckdb-analysis --session-id <任意会话ID> list-sessions
      ```
 
   11. **导出查询结果为CSV**:
      ```bash
-     uv run --directory scripts main.py --session-id <会话ID> export-csv --sql "<SQL语句>" --output <输出文件路径>
+     duckdb-analysis --session-id <会话ID> export-csv --sql "<SQL语句>" --output <输出文件路径>
      ```
 
   **示例操作**:
   1. **导入CSV文件**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file sales.csv --table sales_data --description "销售数据分析"
+     duckdb-analysis --session-id sales_analysis import --file sales.csv --table sales_data --description "销售数据分析"
      ```
 
   2. **导入压缩CSV文件**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file sales.csv.gz --table sales_data
+     duckdb-analysis --session-id sales_analysis import --file sales.csv.gz --table sales_data
      ```
 
   3. **导入Excel文件**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file sales.xlsx --table sales_data
+     duckdb-analysis --session-id sales_analysis import --file sales.xlsx --table sales_data
      ```
 
   4. **导入Parquet文件**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file sales.parquet --table sales_data
+     duckdb-analysis --session-id sales_analysis import --file sales.parquet --table sales_data
      ```
 
   5. **导入JSON文件**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file sales.json --table sales_data
+     duckdb-analysis --session-id sales_analysis import --file sales.json --table sales_data
      ```
 
   6. **导入JSONL文件**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file sales.jsonl --table sales_data
+     duckdb-analysis --session-id sales_analysis import --file sales.jsonl --table sales_data
      ```
 
   7. **使用相对路径导入**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file data/sales.csv --table sales_data
+     duckdb-analysis --session-id sales_analysis import --file data/sales.csv --table sales_data
      ```
 
   8. **使用绝对路径导入**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis import --file C:/data/sales.csv --table sales_data
+     duckdb-analysis --session-id sales_analysis import --file C:/data/sales.csv --table sales_data
      ```
 
   9. **获取表元数据**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis table-metadata --table sales_data
+     duckdb-analysis --session-id sales_analysis table-metadata --table sales_data
      ```
 
   10. **基本查询**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT * FROM sales_data LIMIT 10"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT * FROM sales_data LIMIT 10"
      ```
 
   11. **聚合查询**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT region, SUM(amount) as total FROM sales_data GROUP BY region"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT region, SUM(amount) as total FROM sales_data GROUP BY region"
      ```
 
   12. **分组统计**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT region, product, COUNT(*) as count, AVG(amount) as avg_amount FROM sales_data GROUP BY region, product"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT region, product, COUNT(*) as count, AVG(amount) as avg_amount FROM sales_data GROUP BY region, product"
      ```
 
   13. **条件查询**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT * FROM sales_data WHERE amount > 1000 AND region = 'North'"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT * FROM sales_data WHERE amount > 1000 AND region = 'North'"
      ```
 
   14. **排序查询**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT region, product, amount FROM sales_data ORDER BY amount DESC LIMIT 10"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT region, product, amount FROM sales_data ORDER BY amount DESC LIMIT 10"
      ```
 
   15. **日期分析**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT DATE_TRUNC('month', sale_date) as month, SUM(amount) as total FROM sales_data GROUP BY month ORDER BY month"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT DATE_TRUNC('month', sale_date) as month, SUM(amount) as total FROM sales_data GROUP BY month ORDER BY month"
      ```
 
   16. **连接查询**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT s.region, s.product, s.amount, p.category FROM sales_data s JOIN products p ON s.product_id = p.id"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT s.region, s.product, s.amount, p.category FROM sales_data s JOIN products p ON s.product_id = p.id"
      ```
 
   17. **子查询**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis query --sql "SELECT region, AVG(amount) as avg_amount FROM sales_data GROUP BY region HAVING AVG(amount) > (SELECT AVG(amount) FROM sales_data)"
+     duckdb-analysis --session-id sales_analysis query --sql "SELECT region, AVG(amount) as avg_amount FROM sales_data GROUP BY region HAVING AVG(amount) > (SELECT AVG(amount) FROM sales_data)"
      ```
 
   18. **柱状图可视化**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis visualize --sql "SELECT region, SUM(amount) as total FROM sales_data GROUP BY region" --chart bar --x region --y total
+     duckdb-analysis --session-id sales_analysis visualize --sql "SELECT region, SUM(amount) as total FROM sales_data GROUP BY region" --chart bar --x region --y total
      ```
 
   19. **折线图可视化**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis visualize --sql "SELECT DATE_TRUNC('month', sale_date) as month, SUM(amount) as total FROM sales_data GROUP BY month ORDER BY month" --chart line --x month --y total
+     duckdb-analysis --session-id sales_analysis visualize --sql "SELECT DATE_TRUNC('month', sale_date) as month, SUM(amount) as total FROM sales_data GROUP BY month ORDER BY month" --chart line --x month --y total
      ```
 
   20. **散点图可视化**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis visualize --sql "SELECT price, quantity FROM sales_data" --chart scatter --x price --y quantity
+     duckdb-analysis --session-id sales_analysis visualize --sql "SELECT price, quantity FROM sales_data" --chart scatter --x price --y quantity
      ```
 
   21. **直方图可视化**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis visualize --sql "SELECT amount FROM sales_data" --chart histogram --x amount
+     duckdb-analysis --session-id sales_analysis visualize --sql "SELECT amount FROM sales_data" --chart histogram --x amount
      ```
 
   22. **箱线图可视化**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis visualize --sql "SELECT region, amount FROM sales_data" --chart box --x region --y amount
+     duckdb-analysis --session-id sales_analysis visualize --sql "SELECT region, amount FROM sales_data" --chart box --x region --y amount
      ```
 
   23. **设置会话描述**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis describe --description "2024年销售数据分析"
+     duckdb-analysis --session-id sales_analysis describe --description "2024年销售数据分析"
      ```
 
   24. **查看操作日志**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis log
+     duckdb-analysis --session-id sales_analysis log
      ```
 
   25. **查看所有会话**:
      ```bash
-     uv run --directory scripts main.py --session-id test list-sessions
+     duckdb-analysis --session-id test list-sessions
      ```
 
   26. **导出查询结果为CSV**:
      ```bash
-     uv run --directory scripts main.py --session-id sales_analysis export-csv --sql "SELECT region, SUM(amount) as total FROM sales_data GROUP BY region" --output sales_summary.csv
+     duckdb-analysis --session-id sales_analysis export-csv --sql "SELECT region, SUM(amount) as total FROM sales_data GROUP BY region" --output sales_summary.csv
      ```
