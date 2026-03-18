@@ -30,8 +30,8 @@
 
 2. **克隆项目**
    ```bash
-   git clone <项目地址>
-   cd duckdb-analysis
+   git clone https://github.com/hxr66666/duckdb-analysis-skill.git
+   cd duckdb-analysis-skill
    ```
 
 3. **安装依赖**
