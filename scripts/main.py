@@ -486,7 +486,7 @@ class DuckDBAnalysis:
                     "status": "failed",
                     "error": df
                 }
-                self.operation_log.append(operation)
+                self._record_operation(operation)
                 return df
             
             plt.figure(figsize=(10, 6))
@@ -507,7 +507,7 @@ class DuckDBAnalysis:
                         "status": "failed",
                         "error": error_msg
                     }
-                    self.operation_log.append(operation)
+                    self._record_operation(operation)
                     return error_msg
             elif chart_type == 'line':
                 if x and y:
@@ -525,7 +525,7 @@ class DuckDBAnalysis:
                         "status": "failed",
                         "error": error_msg
                     }
-                    self.operation_log.append(operation)
+                    self._record_operation(operation)
                     return error_msg
             elif chart_type == 'scatter':
                 if x and y:
@@ -543,7 +543,7 @@ class DuckDBAnalysis:
                         "status": "failed",
                         "error": error_msg
                     }
-                    self.operation_log.append(operation)
+                    self._record_operation(operation)
                     return error_msg
             elif chart_type == 'histogram':
                 if x:
@@ -561,7 +561,7 @@ class DuckDBAnalysis:
                         "status": "failed",
                         "error": error_msg
                     }
-                    self.operation_log.append(operation)
+                    self._record_operation(operation)
                     return error_msg
             elif chart_type == 'box':
                 if x and y:
@@ -579,7 +579,7 @@ class DuckDBAnalysis:
                         "status": "failed",
                         "error": error_msg
                     }
-                    self.operation_log.append(operation)
+                    self._record_operation(operation)
                     return error_msg
             else:
                 error_msg = f"不支持的图表类型: {chart_type}"
@@ -594,7 +594,7 @@ class DuckDBAnalysis:
                     "status": "failed",
                     "error": error_msg
                 }
-                self.operation_log.append(operation)
+                self._record_operation(operation)
                 return error_msg
             
             plt.title('数据可视化')
@@ -777,6 +777,7 @@ def main():
     visualize_parser.add_argument('--chart', required=True, choices=['bar', 'line', 'scatter', 'histogram', 'box'], help='图表类型')
     visualize_parser.add_argument('--x', required=True, help='x轴字段')
     visualize_parser.add_argument('--y', help='y轴字段（直方图不需要）')
+    visualize_parser.add_argument('--hue', help='分组字段（可选）')
     
     # 6. 查看操作日志
     log_parser = subparsers.add_parser('log', help='查看操作日志')
