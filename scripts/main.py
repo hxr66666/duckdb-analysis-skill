@@ -7,6 +7,9 @@ import datetime
 import argparse
 import uuid
 
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
+plt.rcParams['axes.unicode_minus'] = False
+
 class DuckDBAnalysis:
     def __init__(self, session_id):
         # 使用传入的会话ID
@@ -472,9 +475,12 @@ class DuckDBAnalysis:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         try:
-            df = self.query(sql)
-            if isinstance(df, str):
-                # 记录失败操作
+            result = self.conn.execute(sql).fetchall()
+            columns = [desc[0] for desc in self.conn.execute(sql).description]
+            df = pd.DataFrame(result, columns=columns)
+            
+            if len(df) == 0:
+                error_msg = "查询结果为空"
                 operation = {
                     "timestamp": timestamp,
                     "action": "visualize",
@@ -484,10 +490,10 @@ class DuckDBAnalysis:
                     "y": y,
                     "hue": hue,
                     "status": "failed",
-                    "error": df
+                    "error": error_msg
                 }
                 self._record_operation(operation)
-                return df
+                return error_msg
             
             plt.figure(figsize=(10, 6))
             
