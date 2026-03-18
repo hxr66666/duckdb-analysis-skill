@@ -14,6 +14,11 @@ class DuckDBAnalysis:
         self.db_name = f"session_{self.session_id}.db"
         self.db_path = os.path.join("..", "data", self.db_name)
         
+        # 确保数据目录存在
+        data_dir = os.path.dirname(self.db_path)
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir, exist_ok=True)
+        
         # 连接到当前会话的数据库
         self.conn = duckdb.connect(self.db_path)
         
@@ -590,14 +595,16 @@ class DuckDBAnalysis:
             
             plt.title('数据可视化')
             plt.tight_layout()
+
             # 创建img文件夹（如果不存在）
-            img_dir = os.path.join(os.getcwd(), 'img')
-            os.makedirs(img_dir, exist_ok=True)
+            img_dir = os.path.join('..', 'img')
+            if not os.path.exists(img_dir):
+                os.makedirs(img_dir, exist_ok=True)
+
             # 生成随机文件名
-            
             random_filename = f"visualization_{uuid.uuid4().hex[:8]}.png"
             # 使用绝对路径保存可视化结果，便于AI读取
-            visualization_path = os.path.join(img_dir, random_filename)
+            visualization_path = os.path.abspath(os.path.join(img_dir, random_filename))
             plt.savefig(visualization_path)
             
             # 记录成功操作
