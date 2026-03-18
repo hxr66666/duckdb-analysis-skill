@@ -1,0 +1,17 @@
+[project]
+name = "scripts"
+version = "0.1.0"
+description = "DuckDB data analysis scripts"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "openpyxl",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
