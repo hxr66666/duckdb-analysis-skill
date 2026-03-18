@@ -14,8 +14,11 @@ class DuckDBAnalysis:
         self.db_name = f"session_{self.session_id}.db"
         self.db_path = os.path.join("..", "data", self.db_name)
         
+        # 使用绝对路径构建数据库路径
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        project_dir = os.path.dirname(script_dir)
+        data_dir = os.path.join(project_dir, "data")
         # 确保数据目录存在
-        data_dir = os.path.dirname(self.db_path)
         if not os.path.exists(data_dir):
             os.makedirs(data_dir, exist_ok=True)
         
@@ -597,7 +600,9 @@ class DuckDBAnalysis:
             plt.tight_layout()
 
             # 创建img文件夹（如果不存在）
-            img_dir = os.path.join('..', 'img')
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            project_dir = os.path.dirname(script_dir)
+            img_dir = os.path.join(project_dir, "img")
             if not os.path.exists(img_dir):
                 os.makedirs(img_dir, exist_ok=True)
 
