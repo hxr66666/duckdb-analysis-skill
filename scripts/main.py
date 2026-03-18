@@ -12,7 +12,7 @@ class DuckDBAnalysis:
         # 使用传入的会话ID
         self.session_id = session_id
         self.db_name = f"session_{self.session_id}.db"
-        self.db_path = os.path.join("..", "data", self.db_name)
+        
         
         # 使用绝对路径构建数据库路径
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -21,7 +21,8 @@ class DuckDBAnalysis:
         # 确保数据目录存在
         if not os.path.exists(data_dir):
             os.makedirs(data_dir, exist_ok=True)
-        
+
+        self.db_path = os.path.join(data_dir, self.db_name)
         # 连接到当前会话的数据库
         self.conn = duckdb.connect(self.db_path)
         
@@ -46,7 +47,7 @@ class DuckDBAnalysis:
             print("请运行 initialize_extensions 命令来安装所有必要的扩展")
         
         # 连接到元数据库（analysis.db）
-        self.meta_db_path = os.path.join("..", "data", "analysis.db")
+        self.meta_db_path = os.path.join(data_dir, "analysis.db")
         self.meta_conn = duckdb.connect(self.meta_db_path)
         
         # 初始化元数据库表
