@@ -47,6 +47,18 @@
    ```
    这个过程可能需要几分钟，因为需要从网络下载扩展
 
+5. **skill 一键安装**
+   ```bash
+   npx skills add https://github.com/hxr66666/duckdb-analysis-skill
+   # 找到skill 目录 找到duckdb-analysis-skill
+   cd duckdb-analysis-skill
+   cd scripts
+   uv sync
+   cd ../
+   # 初始化扩展
+   uv run --directory scripts main.py --session-id init initialize-extensions
+   ```
+
 ## 使用方法
 
 ### 1. 查看帮助信息
